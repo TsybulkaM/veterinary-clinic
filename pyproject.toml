@@ -1,0 +1,18 @@
+[project]
+name = "veterinary-clinic"
+version = "0.1.0"
+description = "Managing appointments in a veterinary clinic project"
+authors = [
+    {name = "Mikita Tsybulka",email = "nikita.tsybulka@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "django (>=5.1.7,<6.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

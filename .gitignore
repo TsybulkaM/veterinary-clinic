@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Django
+/media/
+staticfiles/
+.env
+
+# Poetry
+.poetry/
+.virtualenvs/
+
+# PyCharm or IDEA
+.idea/
+
+# VS Code
+.vscode/
