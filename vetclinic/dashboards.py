@@ -31,7 +31,7 @@ class CustomIndexDashboard(Dashboard):
 
         self.children.append(modules.ModelList(
             _('Models'),
-            models=('vetclinic.*',),  # Показываем все модели из твоего приложения
+            models=('vetclinic.*',),
             column=1,
             order=1
         ))

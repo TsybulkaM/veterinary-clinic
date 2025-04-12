@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jet',
     "jet.dashboard",
-    'vetclinic',
+    'vetclinic.apps.MainAppConfig'
 ]
 
 JET_DASHBOARD_SITE_INDEX = 'vetclinic.dashboards.CustomIndexDashboard'
