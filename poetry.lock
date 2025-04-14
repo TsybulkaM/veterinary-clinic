@@ -40,6 +40,20 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-jet-reboot"
+version = "1.3.10"
+description = "Modern template for Django admin interface with improved functionality"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "django_jet_reboot-1.3.10.tar.gz", hash = "sha256:d54cd4fa4d22706bf48884191300e9c22c777b835993f8112c35126c2edcf135"},
+]
+
+[package.dependencies]
+Django = "*"
+
+[[package]]
 name = "sqlparse"
 version = "0.5.3"
 description = "A non-validating SQL parser."
@@ -84,4 +98,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "6a85b52a8afc748e6f54f7a9ddf7eaaa96a32b95d58a22f8d1fc5c4cf9ae55bb"
+content-hash = "5f7831fe382f15ea6673cebb3ed7078c53dd32271137de5d85604cfecbeb7066"

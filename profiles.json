@@ -1,0 +1,12 @@
+[
+  {
+    "model": "vetclinic.profile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "role": "admin",
+      "phone": "1234567890",
+      "specialization": "Admin"
+    }
+  }
+]
