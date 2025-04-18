@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Veterinary Clinic</title>
+   <link rel="stylesheet" href="{% static 'vetclinic/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Veterinary Clinic</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Your pet's health is our priority</h2>
+            <p>Providing high-quality veterinary care to your beloved pets.</p>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <ul>
+                <li>Routine check-ups</li>
+                <li>Emergency care</li>
+                <li>Surgical procedures</li>
+                <li>Vaccinations</li>
+                <li>Dental care</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="appointment-form">
+        <div class="container">
+            <h2>Book an Appointment</h2>
+            <form action="#" method="POST">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="pet">Pet's Name</label>
+                <input type="text" id="pet" name="pet" required>
+
+                <label for="date">Preferred Date</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Preferred Time</label>
+                <input type="time" id="time" name="time" required>
+
+                <button type="submit">Book Appointment</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Veterinary Clinic. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
