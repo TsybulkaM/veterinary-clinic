@@ -22,6 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-5u!93z47dwbv$7&g0(sofy^^xseupczwd^7(78lxxrtbtm#iu-'
+RECAPTCHA_PUBLIC_KEY = 'your-site-key'
+RECAPTCHA_PRIVATE_KEY = 'your-secret-key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'jet',
     "jet.dashboard",
     'vetclinic.apps.MainAppConfig',
+    'captcha',
 ]
 
 JET_DASHBOARD_SITE_INDEX = 'vetclinic.dashboards.CustomIndexDashboard'

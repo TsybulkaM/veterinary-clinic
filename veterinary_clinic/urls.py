@@ -6,4 +6,5 @@ urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('', include('vetclinic.urls')),
+    path('captcha/', include('captcha.urls')),
 ]

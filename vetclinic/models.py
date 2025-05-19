@@ -68,6 +68,23 @@ class Appointment(models.Model):
         return f"{self.pet.name} on {self.date.strftime('%Y-%m-%d %H:%M')} with {self.vet.username}"
 
 
+class PendingAppointmentRequest(models.Model):
+    owner_name = models.CharField(max_length=100)
+    owner_email = models.EmailField()
+    owner_phone = models.CharField(max_length=20)
+    pet_name = models.CharField(max_length=50)
+    species = models.CharField(max_length=10, choices=Pet.SPECIES_CHOICES, default='unknown')
+    vet = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pending_vet_appointments', null=True, blank=True)
+    assistant = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='pending_assistant_appointments', null=True, blank=True)
+    preferred_date = models.DateTimeField()
+    description = models.TextField(blank=True)
+    is_processed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Request for {self.pet_name} on {self.preferred_date.strftime('%Y-%m-%d %H:%M')}"
+
+
 class MedicalRecord(models.Model):
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='medical_record')
     symptoms = models.TextField()
