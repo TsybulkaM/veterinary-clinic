@@ -4,6 +4,8 @@ from django.contrib.auth.models import User, Group
 from .forms import CustomUserCreationForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib import messages
+from .admin_dashboard import custom_admin_site
+from . import models
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
@@ -85,3 +87,11 @@ admin.site.index_title = "Welcome to VetClinic Administration"
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+
+# All models registration
+for model in models.__dict__.values():
+    try:
+        if hasattr(model, '_meta'):
+            custom_admin_site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass
