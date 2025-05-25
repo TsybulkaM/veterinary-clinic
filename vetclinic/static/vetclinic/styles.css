@@ -1,134 +1,910 @@
-/* General styles */
-* {
+/* ========== Variables ========== */
+:root {
+    --primary-dark: #2c4b57;
+    --primary-light: #e0e4e7;
+    --accent-orange: #d68d4d; /* Softer orange for active link & highlights */
+    --accent-orange-dark: #cc7030; /* Adjusted for dropdown hover */
+    --text-dark: #093041;
+    --text-medium: #555;
+    --text-light: #f0f0f0; /* For light text on dark backgrounds */
+    --text-lighter: #b0b8bc; /* For lighter text, e.g., footer copyright */
+    --dark-gradient-start: #2c4b57;
+    --dark-gradient-end: #e0e4e7;
+    --footer-border: #1f3a44;
+    --subscribe-button-bg: #1f3a44;
+    --subscribe-button-hover-bg: #163038;
+
+    --font-primary: 'Arial', sans-serif;
+    --font-secondary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Added for Team Cards */
+    --light-gray: #f8f9fa; /* A slightly lighter background for cards */
+    --dark-text-color: #333; /* For card titles */
+}
+
+/* ========== Base ========== */
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-primary); /* Default font for the body */
 }
 
-body {
-    background-color: #f4f4f4;
-    color: #333;
+/* ========== Navbar ========== */
+.custom-navbar {
+    background: linear-gradient(to bottom, var(--dark-gradient-start), var(--dark-gradient-end));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
 }
 
-/* Header */
-header {
-    background-color: #2c3e50;
-    color: #fff;
-    padding: 20px 0;
-}
-
-header .container {
+.custom-nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
 }
 
-header h1 {
-    font-size: 2rem;
+@media (min-width: 768px) {
+    .custom-nav-container {
+        padding: 0 3rem;
+    }
 }
 
-header nav ul {
-    list-style-type: none;
+.nav-left, .nav-right {
     display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-header nav ul li {
-    margin: 0 15px;
+.nav-left {
+    margin-right: 0.5rem;
 }
 
-header nav ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
+.nav-right {
+    margin-left: 0.5rem;
 }
 
-/* Hero section */
-.hero {
-    background-color: #3498db;
-    color: white;
-    padding: 50px 0;
-    text-align: center;
+.navbar-brand {
+    margin: 0 0.5rem;
 }
 
-.hero h2 {
-    font-size: 2.5rem;
+.navbar-brand img {
+    height: 100px;
 }
 
-.hero p {
-    font-size: 1.2rem;
+/* Responsive adjustment for logo height */
+@media (max-width: 480px) {
+    .navbar-brand img {
+        height: 80px;
+    }
 }
 
-/* Services section */
-.services {
-    background-color: #ecf0f1;
-    padding: 50px 0;
-    text-align: center;
-}
-
-.services h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.services ul {
-    list-style-type: none;
+.nav-link {
+    color: var(--text-light); /* Using CSS variable */
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 0.5rem 0.7rem;
     font-size: 1.1rem;
+    white-space: nowrap;
 }
 
-.services ul li {
-    margin: 10px 0;
+.nav-link.active {
+    color: var(--accent-orange) !important; /* Kept !important for strong override as per original */
+    font-weight: bold;
+    border-bottom: 2px solid var(--accent-orange);
 }
 
-/* Appointment form section */
-.appointment-form {
+/* ========== Dropdown ========== */
+.dropdown-menu {
     background-color: #fff;
-    padding: 50px 20px;
 }
 
-.appointment-form h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+.dropdown-item:hover {
+    background-color: var(--accent-orange-dark); /* Using CSS variable */
+    color: white;
+}
+
+/* ========== Carousel ========== */
+.carousel-item {
+    position: relative;
+    display: none; /* Скрываем все */
+}
+
+.carousel-item.active {
+    display: block; /* Показываем активный */
+}
+
+.carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom right, rgba(44, 75, 87, 0.6), rgba(224, 228, 231, 0.3));
+    z-index: 1;
+}
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    filter: brightness(85%) contrast(105%);
+}
+
+.carousel-caption-custom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: white;
     text-align: center;
+    width: 90%; /* Added for better mobile text wrapping */
+    max-width: 600px; /* Limits the max width of caption */
 }
 
-.appointment-form form {
+.carousel-caption-custom h2 {
+    font-size: 2.7rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustment for carousel caption heading */
+@media (max-width: 768px) {
+    .carousel-caption-custom h2 {
+        font-size: 2rem;
+    }
+}
+@media (max-width: 480px) {
+    .carousel-caption-custom h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ========== Buttons ========== */
+.btn-nav-light {
+    background-color: var(--primary-light); /* Using CSS variable */
+    color: var(--primary-dark); /* Using CSS variable */
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-nav-light:hover {
+    background-color: white;
+    color: var(--primary-dark); /* Using CSS variable */
+}
+
+/* ========== Icons Section ========== */
+.info-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 3rem 1rem;
+    background-color: #fff;
+}
+
+.info-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.appointment-form label {
-    margin: 10px 0 5px;
-    font-weight: bold;
-}
-
-.appointment-form input {
-    padding: 10px;
-    margin-bottom: 15px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.appointment-form button {
-    padding: 10px 20px;
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.appointment-form button:hover {
-    background-color: #2980b9;
-}
-
-/* Footer */
-footer {
-    background-color: #2c3e50;
-    color: #fff;
-    padding: 20px 0;
+    width: 220px;
     text-align: center;
 }
+
+.info-icon img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 1rem;
+}
+
+.info-icon span {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-dark); /* Using CSS variable */
+}
+
+/* ========== Banner Sections ========== */
+.custom-banner,
+.jungle-banner {
+    background-image: url('../vetclinic/jungle-footer.webp'); /* Ensure this path is correct relative to your static files */
+    background-size: cover;
+    background-position: center center;
+    height: 350px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.jungle-banner {
+    background-position: top;
+}
+
+.jungle-text,
+.custom-banner-text {
+    position: relative;
+    color: var(--text-light); /* Using CSS variable */
+    text-align: center;
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 2;
+    max-width: 700px;
+    font-family: var(--font-primary); /* Consistent font */
+}
+
+.jungle-text h1,
+.custom-banner-text h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* Responsive adjustment for banner headings */
+@media (max-width: 768px) {
+    .jungle-text h1,
+    .custom-banner-text h1 {
+        font-size: 2.5rem;
+    }
+}
+@media (max-width: 480px) {
+    .jungle-text h1,
+    .custom-banner-text h1 {
+        font-size: 2rem;
+    }
+}
+
+
+.jungle-text p,
+.custom-banner-text p {
+    font-size: 1.25rem;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+/* Responsive adjustment for banner paragraphs */
+@media (max-width: 480px) {
+    .jungle-text p,
+    .custom-banner-text p {
+        font-size: 1rem;
+    }
+}
+
+/* Фикс цвета текста в jungle-banner */
+.jungle-banner .lead {
+    color: var(--text-light) !important; /* Using CSS variable, kept !important */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+/* ========== Location Page Styles ========== */
+.location-page-content {
+    background-color: #f8f9fa; /* Light background for the page */
+    padding-top: 3rem; /* Add some top padding */
+    padding-bottom: 3rem; /* Add some bottom padding */
+}
+
+.location-page-content h1 {
+    color: var(--primary-dark); /* Use primary dark for main headings */
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.location-page-content .lead {
+    color: var(--text-medium);
+    font-size: 1.3rem;
+}
+
+#map {
+    height: 550px; /* Slightly taller map */
+    width: 100%;
+    border: 1px solid #ddd; /* Lighter border */
+    border-radius: 8px;
+    overflow: hidden; /* Ensure map tiles don't overflow border-radius */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+}
+
+.location-info-wrapper {
+    background-color: white;
+    border: 1px solid #eee; /* Light border for the info box */
+    padding: 2.5rem; /* Increased padding */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute sections vertically */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+}
+
+.location-section {
+    margin-bottom: 2rem; /* Spacing between sections */
+}
+
+.location-section:last-of-type {
+    margin-bottom: 0; /* No margin on the last section */
+}
+
+.location-section h4 {
+    color: var(--primary-dark); /* Use primary dark for section headings */
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Subtle separator */
+    padding-bottom: 0.8rem;
+}
+
+.location-section h4 i {
+    color: var(--accent-orange); /* Color icons with accent */
+    font-size: 1.6rem;
+    margin-right: 0.8rem; /* Space between icon and text */
+}
+
+.location-section p,
+.location-section a {
+    color: var(--text-dark); /* Darker text for readability */
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.location-section a {
+    text-decoration: none;
+}
+
+.location-section a:hover {
+    color: var(--accent-orange);
+    text-decoration: underline;
+}
+
+.opening-hours-list {
+    list-style: none; /* Remove default list style */
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.opening-hours-list li {
+    padding: 0.3rem 0;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+}
+
+.opening-hours-list li:last-child {
+    border-bottom: none;
+}
+
+.opening-hours-list li strong { /* Make day bold */
+    font-weight: 600;
+}
+
+.opening-hours-list li span { /* Style for hours */
+    font-weight: 400;
+}
+
+/* The main wrapper for the content area on the appointment page */
+.appointment-page-section {
+    background-color: var(--light-gray); /* Apply light gray to this section */
+    padding-top: 3rem; /* Add consistent top padding */
+    padding-bottom: 3rem; /* Add consistent bottom padding */
+    /* Optional: Ensure it fills vertical space if content is short */
+    min-height: calc(100vh - 120px - 200px - 350px); /* Adjust based on navbar, footer, and banner heights */
+    /* If your navbar is 120px, footer ~200px, banner ~350px, this calc should work */
+}
+
+/* Style for the form container (the white box) */
+.appointment-page-section form { /* Target the form within this new wrapper */
+    background-color: white; /* White background for the form block */
+    padding: 2.5rem; /* Consistent padding */
+    border-radius: 0.5rem;
+    box-shadow: none; /* Removed shadow to match the screenshot's flat look */
+    border: 1px solid #e9ecef; /* Added a very light border to define the block, if desired */
+}
+
+
+/* Adjustments for the H2 inside the form section */
+.appointment-page-section h2 {
+    color: var(--text-dark); /* Darker heading */
+    font-weight: 700;
+    margin-bottom: 2rem; /* More space below heading */
+}
+
+
+/* Style for labels */
+.appointment-page-section .form-label {
+    color: var(--text-dark); /* Darker labels for readability */
+    font-weight: 600; /* Bolder labels as seen in screenshot */
+    margin-bottom: 0.6rem; /* Spacing below label */
+    display: block; /* Ensures label is on its own line */
+    font-size: 1.1rem; /* Slightly larger font for labels */
+}
+
+/* Style for input fields */
+.appointment-page-section .form-control {
+    border: 1px solid #ced4da; /* Standard light border */
+    border-radius: 0.25rem; /* Slightly rounded corners */
+    padding: 0.75rem 1rem; /* More padding inside input fields */
+    font-size: 1rem;
+    color: var(--text-dark);
+    box-shadow: none; /* Remove any default box-shadow on inputs */
+}
+
+.appointment-page-section .form-control:focus {
+    border-color: var(--accent-orange); /* Highlight border on focus */
+    box-shadow: 0 0 0 0.25rem rgba(214, 141, 77, 0.25); /* Subtle orange glow on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Updated button style for the form */
+.appointment-page-section .btn-primary {
+    background-color: var(--primary-dark); /* Darker button, or pick an accent color */
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 0.25rem; /* Less rounded to match input fields */
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Make button full width of its column */
+    margin-top: 1.5rem; /* More space above button */
+}
+
+.appointment-page-section .btn-primary:hover {
+    background-color: var(--accent-orange-dark); /* Hover effect */
+    color: white;
+    transform: none; /* Remove lift effect if you prefer flat design */
+    box-shadow: none; /* Remove shadow on hover */
+}
+
+/* ========== Footer Styles ========== */
+.footer {
+    background: linear-gradient(to bottom, var(--dark-gradient-start), var(--dark-gradient-end));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--text-light); /* Ensure consistent light text color */
+    padding: 50px 0 30px;
+    font-family: var(--font-secondary); /* Apply secondary font across footer */
+    border-top: 3px solid var(--footer-border);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    justify-content: space-between; /* Distributes items */
+    align-items: flex-start; /* Align items to the top for better multi-line layout */
+    gap: 2rem; /* Increased gap for better spacing */
+}
+
+.footer-section {
+    flex: 1 1 250px; /* Base flexibility for sections */
+    min-width: 200px; /* Minimum width for each section */
+}
+
+/* Specific styling for the subscribe section for consistency */
+.footer-subscribe {
+    flex: 1 1 300px; /* Make subscribe section a bit wider */
+    min-width: 280px;
+}
+
+.footer-section h4 {
+    margin-bottom: 1rem;
+    color: var(--primary-light);
+    font-weight: 600;
+    font-size: 1.3rem; /* Slightly larger heading for better hierarchy */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle separator */
+    padding-bottom: 0.5rem;
+}
+
+.subscribe-form {
+    display: flex;
+    max-width: 400px;
+    margin-top: 1rem; /* Spacing below heading */
+}
+
+.subscribe-form input[type="email"] {
+    flex-grow: 1;
+    padding: 12px 18px; /* Slightly larger padding for input */
+    border: none;
+    border-radius: 25px 0 0 25px;
+    font-size: 1rem;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque white */
+    color: var(--text-dark); /* Dark text for input */
+}
+
+.subscribe-form button {
+    padding: 12px 22px; /* Slightly larger padding for button */
+    border: none;
+    background-color: var(--subscribe-button-bg);
+    color: var(--primary-light);
+    font-weight: 600;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.subscribe-form button:hover {
+    background-color: var(--subscribe-button-hover-bg);
+    color: white; /* Make text pure white on hover for button */
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 0.7rem;
+}
+
+.footer-links ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+}
+
+.footer-links ul li a:hover {
+    color: var(--accent-orange); /* Use the new accent orange on hover */
+    text-decoration: underline;
+}
+
+.footer-contact p {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1.5rem; /* Slightly reduced gap for a tighter look */
+    font-size: 1.8rem; /* Larger icons for better visibility */
+    margin-top: 1rem; /* Spacing below contact info if present */
+}
+
+.social-link {
+    color: var(--primary-light); /* Light color for social icons */
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--accent-orange); /* Change to accent color on hover */
+}
+
+.footer-copy {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px; /* More space above copyright */
+    padding-top: 15px; /* Padding above text */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle line above copyright */
+    font-size: 0.95rem;
+    color: var(--text-lighter); /* Adjusted to a lighter grey for the copyright */
+}
+
+/* Responsive adjustments for location page */
+@media (max-width: 991px) { /* For Bootstrap's lg breakpoint */
+    #map {
+        height: 400px; /* Adjust map height on smaller screens */
+    }
+    .location-info-wrapper {
+        margin-top: 2rem; /* Add margin when columns stack */
+    }
+    .appointment-section {
+        margin-top: 1.5rem;
+        padding: 2rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .location-page-content .lead {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 575px) { /* For Bootstrap's sm breakpoint */
+    .location-page-content h1 {
+        font-size: 2rem;
+    }
+    .location-page-content .lead {
+        font-size: 1.1rem;
+    }
+    #map {
+        height: 300px;
+    }
+    .location-info-wrapper {
+        padding: 1.5rem;
+    }
+    .location-section h4 {
+        font-size: 1.25rem;
+    }
+    .location-section h4 i {
+        font-size: 1.4rem;
+    }
+    .location-section p,
+    .location-section a,
+    .opening-hours-list li {
+        font-size: 1rem;
+    }
+    .appointment-section h4 {
+        font-size: 1.4rem;
+    }
+    .btn-appointment {
+        font-size: 1.1rem;
+        padding: 0.7rem 1.5rem;
+    }
+}
+
+/* Адаптив для футера */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2.5rem; /* More gap when stacked vertically */
+    }
+
+    .footer-section {
+        min-width: unset; /* Remove min-width to allow full width */
+        width: 100%; /* Take full width when stacked */
+    }
+
+    .footer-subscribe {
+        max-width: 100%; /* Ensure subscribe form takes full width */
+    }
+
+    .subscribe-form {
+        max-width: 400px; /* Keep max-width for input field */
+        margin-left: auto;
+        margin-right: auto; /* Center the form */
+    }
+
+    .footer-socials {
+        justify-content: center; /* Center social icons when stacked */
+    }
+}
+
+/* --- Team Cards Grid (Option 2) --- */
+.team-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column by default */
+    gap: 15px; /* Spacing between cards */
+}
+
+@media (min-width: 992px) { /* On larger screens, make it two columns if space allows */
+    .team-cards-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.team-card {
+    background-color: var(--light-gray); /* Lighter background for cards */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.team-card-icon {
+    font-size: 2rem; /* Larger icon size */
+    color: var(--primary-dark); /* Use your primary color */
+    margin-bottom: 10px;
+}
+
+.team-card strong {
+    display: block; /* Ensure the title is on its own line */
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: var(--dark-text-color);
+}
+
+.team-card p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: var(--text-medium); /* Use a medium dark color for body text */
+    margin-bottom: 0; /* Remove default paragraph margin */
+}
+/* ========== Clinic Benefits Section ========== */
+.clinic-benefits-section {
+    background-color: var(--light-gray); /* Changed to match main page content background */
+    color: var(--text-dark);
+}
+
+.clinic-benefits-section h2 {
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+.benefit-item {
+    padding: 1rem;
+}
+
+.benefit-icon-circle {
+    width: 120px; /* Size of the circle */
+    height: 120px;
+    background-color: var(--primary-dark); /* Dark circle background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto; /* Center the circle and add bottom margin */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow: hidden; /* Crucial to clip images that extend beyond the circle */
+}
+
+.benefit-icon-circle i {
+    color: var(--primary-light); /* Light icon color */
+    font-size: 3.5rem; /* Large icon size */
+}
+
+/* NEW: Styling for images inside benefit circles */
+.benefit-icon-circle img {
+    width: 100%; /* Make image fill the circle width */
+    height: 100%; /* Make image fill the circle height */
+    object-fit: cover; /* Crop image to cover the circle, preserving aspect ratio */
+    border-radius: 50%; /* Ensure image itself is also circular within the div */
+    /* You might adjust max-width or max-height if you want the image to be smaller than the circle */
+    /* Example: max-width: 80px; max-height: 80px; object-fit: contain; background-color: var(--primary-dark); */
+}
+
+
+.benefit-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+}
+
+.benefit-description {
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+}
+
+/* Optional: Style for the parking button if used */
+.btn-parking-book {
+    background-color: transparent;
+    border: 2px solid var(--accent-orange);
+    color: var(--accent-orange);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-parking-book:hover {
+    background-color: var(--accent-orange);
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .clinic-benefits-section h2 {
+        font-size: 2rem;
+    }
+    .benefit-icon-circle {
+        width: 100px;
+        height: 100px;
+    }
+    .benefit-icon-circle i {
+        font-size: 3rem;
+    }
+    /* Responsive for images inside benefit circles */
+    .benefit-icon-circle img {
+        width: 100%; /* Adjust to fill smaller circle */
+        height: 100%;
+    }
+    .benefit-title {
+        font-size: 1.05rem;
+    }
+    .benefit-description {
+        font-size: 0.9rem;
+    }
+}
+/* ... (your existing CSS before Reviews Page Styles) ... */
+
+/* ========== Reviews Page Styles ========== */
+.reviews-page-section {
+    background-color: var(--light-gray); /* Light gray background for the entire section */
+    padding-top: 3rem; /* Consistent padding top */
+    padding-bottom: 3rem; /* Consistent padding bottom */
+    min-height: calc(100vh - 120px - 200px - 350px); /* Adjust min-height as per navbar, footer, banner */
+}
+
+.reviews-page-section h2 {
+    color: var(--primary-dark); /* Dark heading color */
+    font-weight: 700;
+    margin-bottom: 3rem; /* More space below main heading */
+    text-align: center;
+}
+
+.review-card {
+    background-color: white; /* White background for individual review cards */
+    border: 1px solid #e9ecef; /* Light border */
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05); /* Subtle shadow for depth */
+    transition: transform 0.2s ease-in-out;
+}
+
+.review-card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.1);
+}
+
+.review-avatar-container {
+    flex-shrink: 0; /* Prevents avatar from shrinking */
+    width: 100px; /* Size for the avatar image container */
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden; /* Ensure image is clipped to circle */
+    border: 3px solid var(--accent-orange); /* Orange border around avatar */
+    display: flex; /* To center image if it's smaller */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.review-avatar {
+    width: 100%; /* Image fills the container */
+    height: 100%;
+    object-fit: cover; /* Crops image to fill, maintaining aspect ratio */
+    display: block;
+}
+
+.review-content {
+    flex-grow: 1; /* Allows content to take remaining space */
+}
+
+.review-card .card-title {
+    color: var(--primary-dark); /* Name color */
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.review-card .card-text {
+    color: var(--text-medium); /* Review text color */
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.review-card small.text-muted {
+    font-size: 0.85rem;
+    color: var(--text-lighter) !important; /* Ensure it's muted */
+}
+
+.star-rating .fas, .star-rating .far {
+    font-size: 1.1rem; /* Size of stars */
+    margin-right: 2px; /* Space between stars */
+}
+
+/* Responsive adjustments for reviews */
+@media (max-width: 767px) {
+    .review-card .card-body {
+        flex-direction: column; /* Stack avatar and text on small screens */
+    }
+    .review-avatar-container {
+        margin-bottom: 1.5rem !important; /* More space below avatar when stacked */
+        margin-right: 0 !important; /* Remove right margin when stacked */
+    }
+}
+
+
+/* ... (rest of your CSS) ... */

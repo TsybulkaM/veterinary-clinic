@@ -1,0 +1,49 @@
+{% load static %}
+<section class="clinic-benefits-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Why Choose Poznań Veterinary Clinic?</h2>
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="benefit-item">
+                    <div class="benefit-icon-circle">
+                        {# Replace 'your-icon-1.png' with your actual image path #}
+                        <img src="{% static 'vetclinic/icons/approch.png' %}" alt="Benefit 1 Icon">
+                    </div>
+                    <h3 class="benefit-title">GLOBAL APPROACH & HIGH-TECH EQUIPMENT</h3>
+                    <p class="benefit-description">
+                        Because you and your pet deserve the best, our clinic is equipped with state-of-the-art equipment to
+                        quickly perform all necessary medical examinations. Each consultation lasts for minimum 30 minutes.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-item">
+                    <div class="benefit-icon-circle">
+                        {# Replace 'your-icon-2.png' with your actual image path #}
+                        <img src="{% static 'vetclinic/icons/easyParking.png' %}" alt="Benefit 2 Icon">
+                    </div>
+                    <h3 class="benefit-title">EASY PARKING & ACCESSIBILITY</h3>
+                    <p class="benefit-description">
+                        Our clinic has free parking right outside the building. We are conveniently located near public transport stops
+                        for easy access from all parts of Poznań.
+                    </p>
+                    {# Optional: You can still add a button here if you actually have a booking system for parking #}
+                    {# <a href="#" class="btn btn-parking-book mt-3">Book Your Parking Space</a> #}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-item">
+                    <div class="benefit-icon-circle">
+                        {# Replace 'your-icon-3.png' with your actual image path #}
+                        <img src="{% static 'vetclinic/icons/caring.png' %}" alt="Benefit 3 Icon">
+                    </div>
+                    <h3 class="benefit-title">SOOTHING LOCATION & CARING TEAM</h3>
+                    <p class="benefit-description">
+                        A warm welcome, a place designed with kindness, and dedicated examination rooms for dogs and cats.
+                        Our multidisciplinary team takes every possible step to ensure your pet's well-being.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

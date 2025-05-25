@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Our Location - Poznań Veterinary Clinic</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vetclinic/styles.css' %}">
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            {# REMOVED: integrity="sha256-p4xn+L+oKxG05j/p1O6p7s7F6E7gN6g6F6e0a9q0F4=" crossorigin="" #}
+    />
+</head>
+<body>
+
+{% include 'vetclinic/navbar.html' %}
+
+<main class="location-page-content py-5">
+    <div class="container">
+        <h1 class="text-center mb-4">Find Us in Poznań</h1>
+        <p class="lead text-center mb-5">Discover our clinic's location and detailed contact information.</p>
+
+        <div class="row">
+            <div class="col-lg-7 mb-4 mb-lg-0"> {# Map column #}
+                <div id="map" class="shadow-sm rounded"></div>
+            </div>
+            <div class="col-lg-5"> {# Information column #}
+                <div class="location-info-wrapper p-4 shadow-sm rounded h-100">
+                    <section class="location-section">
+                        <h4><i class="fas fa-map-marker-alt"></i> Our Address</h4>
+                        <div class="info-item">
+                            <p class="mb-0"><strong>Veterinary Clinic Poznań</strong></p>
+                            <p class="mb-0">ul. Zwierzęca 10</p>
+                            <p>61-100 Poznań, Poland</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Veterinary+Clinic+Poznan+ul.+Zwierzęca+10" target="_blank" class="btn btn-sm btn-outline-info mt-2">
+                                Get Directions <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+                    </section>
+
+                    <section class="location-section">
+                        <h4><i class="fas fa-clock"></i> Opening Hours</h4>
+                        <ul class="list-unstyled opening-hours-list">
+                            <li><strong>Monday:</strong> <span>09:00 - 18:00</span></li>
+                            <li><strong>Tuesday:</strong> <span>09:00 - 18:00</span></li>
+                            <li><strong>Wednesday:</strong> <span>09:00 - 18:00</span></li>
+                            <li><strong>Thursday:</strong> <span>09:00 - 18:00</span></li>
+                            <li><strong>Friday:</strong> <span>09:00 - 17:00</span></li>
+                            <li><strong>Saturday:</strong> <span>10:00 - 14:00 (Emergency only)</span></li>
+                            <li><strong>Sunday:</strong> <span>Closed</span></li>
+                        </ul>
+                        <p class="text-muted small mt-3">Appointments are highly recommended to ensure prompt service for your pet.</p>
+                    </section>
+
+                    <section class="location-section">
+                        <h4><i class="fas fa-phone-alt"></i> Contact Us</h4>
+                        <div class="info-item">
+                            <p class="mb-1"><strong>Phone:</strong> <a href="tel:+48123456789">+48 123 456 789</a></p>
+                            <p class="mb-0"><strong>Email:</strong> <a href="mailto:info@vetclinicpoznan.com">info@vetclinicpoznan.com</a></p>
+                        </div>
+                    </section>
+
+                    <section class="appointment-section text-center p-3 rounded">
+                        <h4>Ready to Visit Us?</h4>
+                        <p class="mb-3">Book a consultation for your beloved pet today!</p>
+                        <a href="#" class="btn btn-lg btn-appointment">
+                            <i class="fas fa-calendar-check me-2"></i> Book Online Now
+                        </a>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include 'vetclinic/benefits_section.html' %}
+{% include 'vetclinic/footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        {# REMOVED: integrity="sha256-2580vR0X4+2x9a9J7/q+2o2k5X2r5/a2d3j9k1/a4d3w=" crossorigin="" #}
+></script>
+
+<script>
+    const poznanCoords = [52.4064, 16.9252]; // Coordinates for Poznań, Poland
+    let mapInstance = null; // Use a distinct name to avoid conflicts
+
+    // Function to initialize the map
+    function initializeMap() {
+        // Check if the map div exists AND if the map hasn't been initialized yet
+        if (document.getElementById('map') && mapInstance === null) {
+            mapInstance = L.map('map').setView(poznanCoords, 14); // Slightly more zoomed in for local view
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(mapInstance); // Use mapInstance here
+
+            L.marker(poznanCoords).addTo(mapInstance) // Use mapInstance here
+                .bindPopup('<b>Veterinary Clinic Poznań</b><br>ul. Zwierzęca 10<br>61-100 Poznań, Poland')
+                .openPopup();
+
+            // It's a good practice to call invalidateSize if the map container
+            // might have been hidden or its size determined dynamically by CSS/JS.
+            // A small delay ensures the browser has rendered the layout.
+            setTimeout(function() {
+                if (mapInstance) { // Ensure mapInstance exists before calling invalidateSize
+                    mapInstance.invalidateSize();
+                }
+            }, 100); // 100ms delay
+        }
+    }
+
+    // Initialize the map when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', initializeMap);
+
+    // If your page loads content dynamically (e.g., via AJAX, tabs),
+    // you might need to call initializeMap() or mapInstance.invalidateSize()
+    // whenever the map container becomes visible or its size changes.
+</script>
+
+</body>
+</html>
