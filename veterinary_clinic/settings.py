@@ -32,15 +32,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',  # Добавьте jazzmin первым!
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'jet',  # Удалите jet
-    # 'jet.dashboard',  # Удалите jet.dashboard
     'vetclinic.apps.MainAppConfig',
 ]
 

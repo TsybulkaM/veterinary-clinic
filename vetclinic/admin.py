@@ -78,16 +78,6 @@ class CustomUserAdmin(BaseUserAdmin):
             password = form.get_generated_password()
             messages.success(request, f"Generated password for {obj.username}: {password}")
 
-
-# main actions
-
-admin.site.site_header = "VetClinic Management"
-admin.site.site_title = "VetClinic Admin"
-admin.site.index_title = "Welcome to VetClinic Administration"
-
-admin.site.unregister(User)
-admin.site.register(User, CustomUserAdmin)
-
 # All models registration
 for model in models.__dict__.values():
     try:
@@ -95,3 +85,7 @@ for model in models.__dict__.values():
             custom_admin_site.register(model)
     except admin.sites.AlreadyRegistered:
         pass
+
+custom_admin_site.unregister(User)
+custom_admin_site.register(User, CustomUserAdmin)
+custom_admin_site.register(Group)
