@@ -1,0 +1,22 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+    <h2>All models stats</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nodel</th>
+                <th>Records amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in stats %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ block.super }}
+{% endblock %}

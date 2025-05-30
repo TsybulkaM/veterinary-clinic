@@ -4,6 +4,9 @@ from django.contrib.auth.models import User, Group
 from .forms import CustomUserCreationForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.shortcuts import redirect
+from django.contrib import messages
+from .admin_dashboard import custom_admin_site
+from . import models
 
 
 @admin.register(Owner)
@@ -130,12 +133,14 @@ class CustomUserAdmin(BaseUserAdmin):
             password = form.get_generated_password()
             messages.success(request, f"Generated password for {obj.username}: {password}")
 
+# All models registration
+for model in models.__dict__.values():
+    try:
+        if hasattr(model, '_meta'):
+            custom_admin_site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass
 
-# main actions
-
-admin.site.site_header = "VetClinic Management"
-admin.site.site_title = "VetClinic Admin"
-admin.site.index_title = "Welcome to VetClinic Administration"
-
-admin.site.unregister(User)
-admin.site.register(User, CustomUserAdmin)
+custom_admin_site.unregister(User)
+custom_admin_site.register(User, CustomUserAdmin)
+custom_admin_site.register(Group)
