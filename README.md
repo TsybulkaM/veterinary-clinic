@@ -5,6 +5,13 @@
 1. Clone the repository.
 2. Install the required packages using poetry.
 
+#### .env file example:
+```bash
+SECRET_KEY=your_secret_key
+RECAPTCHA_PUBLIC_KEY=your_secret_key
+RECAPTCHA_PRIVATE_KEY=your_secret_key
+```
+
 ### Intructions to run the project
 
 Make and apply migration:
