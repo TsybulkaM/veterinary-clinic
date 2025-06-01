@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Shop - VetClinic Poznań</title> {# Page Title #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vetclinic/styles.css' %}">
+</head>
+<body>
+
+{% include 'vetclinic/navbar.html' %}
+
+{# Custom Banner for the Shop Page #}
+<div class="custom-banner">
+    <div class="custom-banner-text">
+        <h1>Our Shop</h1>
+        <p>Discover high-quality products for your beloved pets.</p>
+    </div>
+</div>
+
+{# Main Shop Content Section - This will get the light gray background #}
+<section class="shop-page-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" style="color: var(--text-dark); font-weight: 700;">Featured Products</h2>
+        <div id="shop-root"></div> {# React will render here #}
+    </div>
+</section>
+
+{% include 'vetclinic/benefits_section.html' %} {# Keep benefits section #}
+{% include 'vetclinic/footer.html' %}
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script type="text/babel">
+    const productsData = [
+        {
+            id: 1,
+            name: "Premium Dry Dog Food",
+            description: "High-quality dry food for adult dogs, packed with essential nutrients.",
+            price: 49.99,
+            image: "{% static 'vetclinic/products/dog_food.png' %}",
+            category: "Food",
+            inStock: true
+        },
+        {
+            id: 2,
+            name: "Interactive Cat Toy",
+            description: "Engaging toy designed to keep your cat active and entertained for hours.",
+            price: 15.50,
+            image: "{% static 'vetclinic/products/cat_toy.png' %}",
+            category: "Toys",
+            inStock: true
+        },
+        {
+            id: 3,
+            name: "Flea & Tick Prevention",
+            description: "Effective solution for flea and tick control, suitable for all pets.",
+            price: 29.00,
+            image: "{% static 'vetclinic/products/flea_prevention.webp' %}",
+            category: "Health",
+            inStock: true
+        },
+        {
+            id: 4,
+            name: "Soft Pet Bed",
+            description: "Luxurious, comfortable bed for small to medium-sized pets. Washable cover.",
+            price: 75.00,
+            image: "{% static 'vetclinic/products/pet_bed.jpg' %}",
+            category: "Accessories",
+            inStock: false
+        },
+        {
+            id: 5,
+            name: "Dental Chews for Dogs",
+            description: "Promotes healthy teeth and fresh breath. Delicious chicken flavor.",
+            price: 12.99,
+            image: "{% static 'vetclinic/products/dental_chews.jpeg' %}",
+            category: "Health",
+            inStock: true
+        },
+        {
+            id: 6,
+            name: "Fish Tank Filter",
+            description: "High-performance filter for aquariums up to 50 liters. Crystal clear water.",
+            price: 38.25,
+            image: "{% static 'vetclinic/products/fish_filter.jpg' %}",
+            category: "Aquarium",
+            inStock: true
+        }
+    ];
+
+    function ProductCard({ product }) {
+        return (
+            <div className="col-md-6 col-lg-4 mb-4">
+                <div className="product-card card h-100">
+                    <img src={product.image} className="card-img-top product-image" alt={product.name} />
+                    <div className="card-body d-flex flex-column">
+                        <h5 className="card-title product-title">{product.name}</h5>
+                        <p className="card-text product-description flex-grow-1">{product.description}</p>
+                        <div className="d-flex justify-content-between align-items-center mt-auto">
+                            <span className="product-price">${product.price.toFixed(2)}</span>
+                            {product.inStock ? (
+                                <button className="btn btn-add-to-cart">Add to Cart</button>
+                            ) : (
+                                <span className="text-danger product-out-of-stock">Out of Stock</span>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    function ShopPage() {
+        const [searchTerm, setSearchTerm] = React.useState('');
+        const [filteredProducts, setFilteredProducts] = React.useState(productsData);
+
+        React.useEffect(() => {
+            const results = productsData.filter(product =>
+                product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.category.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredProducts(results);
+        }, [searchTerm]);
+
+        return (
+            <div className="shop-content">
+                <div className="row mb-4 justify-content-center">
+                    <div className="col-md-6">
+                        <input
+                            type="text"
+                            className="form-control shop-search-input"
+                            placeholder="Search products..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    {filteredProducts.length > 0 ? (
+                        filteredProducts.map(product => (
+                            <ProductCard key={product.id} product={product} />
+                        ))
+                    ) : (
+                        <p className="text-center text-muted col-12">No products found matching your search.</p>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("shop-root"));
+    root.render(<ShopPage />);
+</script>
+
+</body>
+</html>

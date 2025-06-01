@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Veterinary Clinic</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vetclinic/styles.css' %}">
+</head>
+<body> {# REMOVE THE ID FROM HERE IF YOU ADDED IT IN THE LAST STEP #}
+
+{% include 'vetclinic/navbar.html' %}
+
+<div class="custom-banner">
+    <div class="custom-banner-text">
+        <h1>Book Your Visit</h1>
+        <p>Schedule a visit with our expert veterinary team easily and hassle-free.</p>
+    </div>
+</div>
+
+{# NEW WRAPPER DIV HERE! #}
+<div class="appointment-page-section">
+    <main class="container py-5"> {# Keep Bootstrap's container and padding here #}
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <h2 class="mb-4 text-center">Book Your Visit</h2>
+                <form action="#" method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="petName" class="form-label">Pet Name</label>
+                        <input type="text" class="form-control" id="petName" name="pet_name" required>
+                        <div class="invalid-feedback">
+                            Please enter your pet's name.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="ownerName" class="form-label">Owner's Name</label>
+                        <input type="text" class="form-control" id="ownerName" name="owner_name" required>
+                        <div class="invalid-feedback">
+                            Please enter your name.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                        <div class="invalid-feedback">
+                            Please provide your phone number.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="date" class="form-label">Appointment Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                        <div class="invalid-feedback">
+                            Please select a date.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="message" class="form-label">Additional Notes</label>
+                        <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div> {# END OF NEW WRAPPER DIV #}
+
+{% include 'vetclinic/benefits_section.html' %}
+{% include 'vetclinic/footer.html' %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (() => {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+</body>
+</html>

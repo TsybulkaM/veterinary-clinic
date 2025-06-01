@@ -3,8 +3,11 @@ from django.contrib import messages
 from .forms import AppointmentRequestForm
 from .models import PendingAppointmentRequest
 
+# vetclinic/views.py
+from django.shortcuts import render
 
-def home_page(request):
+# Create your views here.
+def home(request):
     if request.method == 'POST':
         form = AppointmentRequestForm(request.POST)
         if form.is_valid():
@@ -21,3 +24,21 @@ def home_page(request):
     else:
         form = AppointmentRequestForm()
     return render(request, 'vetclinic/homePage.html', {'form': form})
+
+def appointment(request):
+    return render(request, 'vetclinic/appointment.html')
+
+def location(request):
+    return render(request, 'vetclinic/location.html')
+
+def about_view(request):
+    return render(request, 'vetclinic/about.html')
+
+def contact_view(request): # <--- ADD THIS FUNCTION (or ensure it's there)
+    return render(request, 'vetclinic/contact.html')
+
+def reviews(request):
+    return render(request, 'vetclinic/reviews.html')
+
+def shop(request):
+    return  render(request,'vetclinic/shop.html' )
