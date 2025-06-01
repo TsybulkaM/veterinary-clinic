@@ -102,31 +102,9 @@
 <section class="bg-light py-5">
     <div class="container">
         <h2 class="mb-4 text-center">Book an Appointment</h2>
-        <form action="#" method="POST" class="row g-3">
-            <div class="col-md-6">
-                <label for="name" class="form-label">Full Name</label>
-                <input type="text" id="name" name="name" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" id="email" name="email" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" id="phone" name="phone" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label for="pet" class="form-label">Pet's Name</label>
-                <input type="text" id="pet" name="pet" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label for="date" class="form-label">Preferred Date</label>
-                <input type="date" id="date" name="date" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label for="time" class="form-label">Preferred Time</label>
-                <input type="time" id="time" name="time" class="form-control" required>
-            </div>
+        <form method="POST" class="row g-3">
+            {% csrf_token %}
+            {{ form.as_p }}
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary px-5">Book Appointment</button>
             </div>
@@ -136,7 +114,6 @@
 
 <!-- Footer -->
 {% include 'vetclinic/footer.html' %}
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

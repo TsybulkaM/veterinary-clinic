@@ -1,9 +1,13 @@
-from django.contrib import admin
-from .models import Owner, Pet, Appointment, Service, MedicalRecord, Invoice
+from django.contrib import admin, messages
+from .models import Owner, Pet, Appointment, PendingAppointmentRequest, Service, MedicalRecord, Invoice
 from django.contrib.auth.models import User, Group
 from .forms import CustomUserCreationForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.shortcuts import redirect
 from django.contrib import messages
+from .admin_dashboard import custom_admin_site
+from . import models
+
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
@@ -42,6 +46,59 @@ class AppointmentAdmin(admin.ModelAdmin):
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
+@admin.register(PendingAppointmentRequest)
+class PendingAppointmentRequestAdmin(admin.ModelAdmin):
+    list_display = ('pet_name', 'owner_name', 'owner_email', 'owner_phone', 'preferred_date')
+    search_fields = ('owner_name', 'owner_email', 'pet_name')
+    list_filter = ('is_processed', 'preferred_date')
+    actions = ['process_requests']
+
+    class Media:
+        js = ('admin/js/set_default_action.js',)
+
+    def changelist_view(self, request, extra_context=None):
+        if 'is_processed__exact' not in request.GET:
+            query = request.GET.copy()
+            query['is_processed__exact'] = '0'
+            return redirect(f"{request.path}?{query.urlencode()}")
+        return super().changelist_view(request, extra_context=extra_context)
+
+    @admin.action(description="Verify and process selected requests")
+    def process_requests(self, request, queryset):
+        for pending_request in queryset:
+            if pending_request.is_processed:
+                continue
+
+            owner, created = Owner.objects.get_or_create(
+                phone=pending_request.owner_phone,
+                defaults={
+                    "first_name": pending_request.owner_name.split()[0],
+                    "last_name": ' '.join(pending_request.owner_name.split()[1:]),
+                    "email": pending_request.owner_email,
+                }
+            )
+
+            pet, _ = Pet.objects.get_or_create(
+                name=pending_request.pet_name,
+                owner=owner,
+                species=pending_request.species,
+            )
+
+            appointment = Appointment.objects.create(
+                pet=pet,
+                date=pending_request.preferred_date,
+                #TODO: Create varificatrion for free vet and assistant
+                vet=pending_request.vet,
+                assistant=pending_request.assistant,
+                status='scheduled',
+            )
+
+            pending_request.is_processed = True
+            pending_request.save()
+
+        self.message_user(request, "Selected requests have been processed successfully.")
+
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
@@ -76,12 +133,14 @@ class CustomUserAdmin(BaseUserAdmin):
             password = form.get_generated_password()
             messages.success(request, f"Generated password for {obj.username}: {password}")
 
+# All models registration
+for model in models.__dict__.values():
+    try:
+        if hasattr(model, '_meta'):
+            custom_admin_site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass
 
-# main actions
-
-admin.site.site_header = "VetClinic Management"
-admin.site.site_title = "VetClinic Admin"
-admin.site.index_title = "Welcome to VetClinic Administration"
-
-admin.site.unregister(User)
-admin.site.register(User, CustomUserAdmin)
+custom_admin_site.unregister(User)
+custom_admin_site.register(User, CustomUserAdmin)
+custom_admin_site.register(Group)
