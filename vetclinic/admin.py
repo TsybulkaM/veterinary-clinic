@@ -91,6 +91,7 @@ class PendingAppointmentRequestAdmin(admin.ModelAdmin):
                 vet=pending_request.vet,
                 assistant=pending_request.assistant,
                 status='scheduled',
+                notes=pending_request.description,
             )
 
             pending_request.is_processed = True
@@ -133,13 +134,33 @@ class CustomUserAdmin(BaseUserAdmin):
             password = form.get_generated_password()
             messages.success(request, f"Generated password for {obj.username}: {password}")
 
-# All models registration
-for model in models.__dict__.values():
+
+for model in list(models.__dict__.values()):
     try:
         if hasattr(model, '_meta'):
+            custom_admin_site.unregister(model)
+    except admin.sites.NotRegistered:
+        pass
+
+# Find all admin classes defined in this module - use a copy of globals()
+admin_classes = {}
+all_globals = dict(globals())
+for name, obj in all_globals.items():
+    if isinstance(obj, type) and issubclass(obj, admin.ModelAdmin) and obj != admin.ModelAdmin:
+        for model in admin.site._registry:
+            if isinstance(admin.site._registry[model], obj):
+                admin_classes[model] = obj
+
+for model, admin_class in admin_classes.items():
+    custom_admin_site.register(model, admin_class)
+
+for model in list(models.__dict__.values()):
+    try:
+        if hasattr(model, '_meta') and model not in admin_classes:
             custom_admin_site.register(model)
     except admin.sites.AlreadyRegistered:
         pass
+
 
 custom_admin_site.unregister(User)
 custom_admin_site.register(User, CustomUserAdmin)
