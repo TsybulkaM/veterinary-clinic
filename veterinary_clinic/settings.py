@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'vetclinic.apps.MainAppConfig',
+    'widget_tweaks',
     'captcha',
 ]
 
