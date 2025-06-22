@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import AppointmentRequestForm
 from .models import PendingAppointmentRequest
-
-# vetclinic/views.py
 from django.shortcuts import render
+from datetime import date
 
-# Create your views here.
+
 def home(request):
+    today = date.today().strftime('%Y-%m-%d')
     if request.method == 'POST':
         form = AppointmentRequestForm(request.POST)
         if form.is_valid():
@@ -18,15 +18,41 @@ def home(request):
                 owner_phone=form.cleaned_data['owner_phone'],
                 preferred_date=form.cleaned_data['preferred_date'],
                 description=form.cleaned_data['description'],
+                species='unknown',
             )
-            messages.success(request, "Your request has been sent. An administrator will contact you to confirm.")
-            return redirect('home_page')
+            messages.success(request, "Your appointment request has been submitted successfully. We'll contact you shortly.")
+            return redirect('homePage')
     else:
         form = AppointmentRequestForm()
-    return render(request, 'vetclinic/homePage.html', {'form': form})
+
+    if 'preferred_date' in form.fields:
+        form.fields['preferred_date'].widget.attrs['min'] = today
+
+    return render(request, 'vetclinic/homePage.html', {'form': form, 'today': today})
 
 def appointment(request):
-    return render(request, 'vetclinic/appointment.html')
+    today = date.today().strftime('%Y-%m-%d')
+    if request.method == 'POST':
+        form = AppointmentRequestForm(request.POST)
+        if form.is_valid():
+            PendingAppointmentRequest.objects.create(
+                pet_name=form.cleaned_data['pet_name'],
+                owner_name=form.cleaned_data['owner_name'],
+                owner_email=form.cleaned_data['owner_email'],
+                owner_phone=form.cleaned_data['owner_phone'],
+                preferred_date=form.cleaned_data['preferred_date'],
+                description=form.cleaned_data['description'],
+                species='unknown',
+            )
+            messages.success(request, "Your appointment request has been submitted successfully. We'll contact you shortly.")
+            return redirect('homePage')
+    else:
+        form = AppointmentRequestForm()
+
+    if 'preferred_date' in form.fields:
+        form.fields['preferred_date'].widget.attrs['min'] = today
+
+    return render(request, 'vetclinic/appointment.html', {'form': form, 'today': today})
 
 def location(request):
     return render(request, 'vetclinic/location.html')

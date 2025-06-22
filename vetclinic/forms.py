@@ -1,20 +1,31 @@
 from django import forms
+from datetime import datetime, date
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
-from .models import Pet
 from captcha.fields import CaptchaField
 
 
 class AppointmentRequestForm(forms.Form):
+    # Form fields should use forms.* not models.*
     pet_name = forms.CharField(max_length=50)
-    species = forms.ChoiceField(choices=Pet.SPECIES_CHOICES)
     owner_name = forms.CharField(max_length=100)
     owner_email = forms.EmailField()
     owner_phone = forms.CharField(max_length=20)
-    # TODO: Create varificatrion for preferred_date automatically
-    preferred_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
-    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4}), required=False)
-    captcha = CaptchaField()
+    preferred_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    description = forms.CharField(widget=forms.Textarea, required=False)
+
+    def clean_preferred_date(self):
+        preferred_date = self.cleaned_data['preferred_date']
+        today = date.today()
+
+        if isinstance(preferred_date, datetime):
+            preferred_date = preferred_date.date()
+
+        if preferred_date < today:
+            raise ValidationError("Appointment date cannot be in the past.")
+
+        return preferred_date
 
 
 class CustomUserCreationForm(forms.ModelForm):
