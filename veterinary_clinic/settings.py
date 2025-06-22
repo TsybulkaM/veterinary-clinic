@@ -74,6 +74,35 @@ TEMPLATES = [
     },
 ]
 
+JAZZMIN_SETTINGS = {
+    "site_title": "VetClinic Admin",
+    "site_header": "VetClinic Management",
+    "site_brand": "VetClinic",
+
+    #"site_logo": "path/to/your/logo.png",
+    #"site_logo_classes": "img-circle",
+
+    "welcome_sign": "Welcome to the VetClinic Management System",
+
+    "copyright": "VetClinic Ltd",
+
+    "icons": {
+        "vetclinic.Owner": "fas fa-users",
+        "vetclinic.Pet": "fas fa-paw",
+        "vetclinic.Appointment": "fas fa-calendar-alt",
+        "auth.user": "fas fa-user",
+        "auth.group": "fas fa-users",
+    },
+
+    "custom_links": {
+        "vetclinic": [{
+            "name": "Schedule Dashboard",
+            "url": "admin:index",
+            "icon": "fas fa-chart-line"
+        }],
+    },
+}
+
 WSGI_APPLICATION = 'veterinary_clinic.wsgi.application'
 
 

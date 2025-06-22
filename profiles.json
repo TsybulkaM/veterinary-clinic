@@ -1,12 +1,314 @@
 [
   {
-    "model": "vetclinic.profile",
+    "model": "auth.user",
     "pk": 1,
     "fields": {
-      "user": 1,
-      "role": "admin",
-      "phone": "1234567890",
-      "specialization": "Admin"
+      "password": "pbkdf2_sha256$260000$your_secure_salt$your_secure_hash",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "dr_smith",
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "dr.smith@vetclinic.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-04-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$another_secure_salt$another_secure_hash",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "dr_jones",
+      "first_name": "Emily",
+      "last_name": "Jones",
+      "email": "dr.jones@vetclinic.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-04-01T10:01:00Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$third_secure_salt$third_secure_hash",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "as_davis",
+      "first_name": "Mark",
+      "last_name": "Davis",
+      "email": "m.davis@vetclinic.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-04-01T10:02:00Z"
+    }
+  },
+  {
+    "model": "vetclinic.owner",
+    "pk": 1,
+    "fields": {
+      "first_name": "Alice",
+      "last_name": "Williams",
+      "phone": "+1-202-555-0172",
+      "email": "alice.w@example.com",
+      "address": "123 Maple St, Springfield"
+    }
+  },
+  {
+    "model": "vetclinic.owner",
+    "pk": 2,
+    "fields": {
+      "first_name": "Bob",
+      "last_name": "Brown",
+      "phone": "+1-202-555-0191",
+      "email": "bob.brown@example.com",
+      "address": "456 Oak Ave, Shelbyville"
+    }
+  },
+  {
+    "model": "vetclinic.pet",
+    "pk": 1,
+    "fields": {
+      "name": "Buddy",
+      "species": "dog",
+      "breed": "Golden Retriever",
+      "sex": "male",
+      "date_of_birth": "2020-05-15",
+      "owner": 1
+    }
+  },
+  {
+    "model": "vetclinic.pet",
+    "pk": 2,
+    "fields": {
+      "name": "Lucy",
+      "species": "cat",
+      "breed": "Siamese",
+      "sex": "female",
+      "date_of_birth": "2022-01-20",
+      "owner": 2
+    }
+  },
+  {
+    "model": "vetclinic.pet",
+    "pk": 3,
+    "fields": {
+      "name": "Max",
+      "species": "dog",
+      "breed": "German Shepherd",
+      "sex": "male",
+      "date_of_birth": "2019-11-10",
+      "owner": 2
+    }
+  },
+  {
+    "model": "vetclinic.service",
+    "pk": 1,
+    "fields": {
+      "name": "Routine Check-up",
+      "description": "Standard physical examination.",
+      "price": "50.00"
+    }
+  },
+  {
+    "model": "vetclinic.service",
+    "pk": 2,
+    "fields": {
+      "name": "Vaccination",
+      "description": "Annual booster shots.",
+      "price": "75.00"
+    }
+  },
+  {
+    "model": "vetclinic.service",
+    "pk": 3,
+    "fields": {
+      "name": "Dental Cleaning",
+      "description": "Scale and polish.",
+      "price": "120.00"
+    }
+  },
+  {
+    "model": "vetclinic.appointment",
+    "pk": 1,
+    "fields": {
+      "pet": 1,
+      "date": "2025-05-10T10:00:00Z",
+      "vet": 1,
+      "assistant": 3,
+      "services": [1, 2],
+      "notes": "Annual checkup and vaccination. Pet is healthy.",
+      "status": "completed",
+      "created_at": "2025-05-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "vetclinic.appointment",
+    "pk": 2,
+    "fields": {
+      "pet": 2,
+      "date": "2025-05-22T14:30:00Z",
+      "vet": 2,
+      "assistant": null,
+      "services": [1],
+      "notes": "Cat seems lethargic. Observation needed.",
+      "status": "completed",
+      "created_at": "2025-05-20T11:00:00Z"
+    }
+  },
+  {
+    "model": "vetclinic.appointment",
+    "pk": 3,
+    "fields": {
+      "pet": 3,
+      "date": "2025-06-05T11:00:00Z",
+      "vet": 1,
+      "assistant": 3,
+      "services": [3],
+      "notes": "Scheduled for dental work.",
+      "status": "completed",
+      "created_at": "2025-06-01T15:00:00Z"
+    }
+  },
+  {
+    "model": "vetclinic.appointment",
+    "pk": 4,
+    "fields": {
+      "pet": 1,
+      "date": "2025-06-15T16:00:00Z",
+      "vet": 2,
+      "assistant": null,
+      "services": [],
+      "notes": "Follow-up for skin rash.",
+      "status": "scheduled",
+      "created_at": "2025-06-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "vetclinic.appointment",
+    "pk": 5,
+    "fields": {
+      "pet": 2,
+      "date": "2025-04-18T09:30:00Z",
+      "vet": 1,
+      "assistant": 3,
+      "services": [1],
+      "notes": "Initial consultation.",
+      "status": "completed",
+      "created_at": "2025-04-15T12:00:00Z"
+    }
+  },
+  {
+    "model": "vetclinic.medicalrecord",
+    "pk": 1,
+    "fields": {
+      "appointment": 1,
+      "symptoms": "None, routine visit.",
+      "diagnosis": "Healthy condition.",
+      "treatment": "Administered annual DHPP and Rabies vaccines.",
+      "prescriptions": "None.",
+      "follow_up_date": "2026-05-10"
+    }
+  },
+  {
+    "model": "vetclinic.medicalrecord",
+    "pk": 2,
+    "fields": {
+      "appointment": 2,
+      "symptoms": "Lethargy and decreased appetite.",
+      "diagnosis": "Mild feline upper respiratory infection.",
+      "treatment": "Prescribed antibiotics and rest.",
+      "prescriptions": "Amoxicillin 50mg, twice daily for 7 days.",
+      "follow_up_date": "2025-06-01"
+    }
+  },
+  {
+    "model": "vetclinic.medicalrecord",
+    "pk": 3,
+    "fields": {
+      "appointment": 3,
+      "symptoms": "Visible tartar buildup and bad breath.",
+      "diagnosis": "Stage 2 periodontal disease.",
+      "treatment": "Full dental cleaning under anesthesia. No extractions needed.",
+      "prescriptions": "Clindamycin as a precaution.",
+      "follow_up_date": null
+    }
+  },
+  {
+    "model": "vetclinic.medicalrecord",
+    "pk": 4,
+    "fields": {
+      "appointment": 5,
+      "symptoms": "Owner just adopted the cat.",
+      "diagnosis": "Healthy, but needs deworming.",
+      "treatment": "Standard deworming medication provided.",
+      "prescriptions": "Drontal tablets.",
+      "follow_up_date": null
+    }
+  },
+  {
+    "model": "vetclinic.invoice",
+    "pk": 1,
+    "fields": {
+      "appointment": 1,
+      "issued_date": "2025-05-10T11:00:00Z",
+      "total": "125.00",
+      "is_paid": true,
+      "payment_method": "Credit Card"
+    }
+  },
+  {
+    "model": "vetclinic.invoice",
+    "pk": 2,
+    "fields": {
+      "appointment": 2,
+      "issued_date": "2025-05-22T15:00:00Z",
+      "total": "50.00",
+      "is_paid": true,
+      "payment_method": "Cash"
+    }
+  },
+  {
+    "model": "vetclinic.invoice",
+    "pk": 3,
+    "fields": {
+      "appointment": 3,
+      "issued_date": "2025-06-05T12:30:00Z",
+      "total": "120.00",
+      "is_paid": false,
+      "payment_method": ""
+    }
+  },
+  {
+    "model": "vetclinic.invoice",
+    "pk": 4,
+    "fields": {
+      "appointment": 5,
+      "issued_date": "2025-04-18T10:00:00Z",
+      "total": "50.00",
+      "is_paid": true,
+      "payment_method": "Credit Card"
+    }
+  },
+  {
+    "model": "vetclinic.pendingappointmentrequest",
+    "pk": 1,
+    "fields": {
+      "owner_name": "Charlie Day",
+      "owner_email": "charlie.day@example.com",
+      "owner_phone": "+1-202-555-0182",
+      "pet_name": "Tweety",
+      "species": "bird",
+      "vet": 1,
+      "assistant": null,
+      "preferred_date": "2025-06-20T10:00:00Z",
+      "description": "My bird has stopped singing.",
+      "is_processed": false,
+      "created_at": "2025-06-11T14:00:00Z"
     }
   }
 ]

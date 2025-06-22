@@ -5,22 +5,22 @@ from django.dispatch import receiver
 
 from .models import (
     Owner, Pet, Appointment, Service,
-    MedicalRecord, Invoice, VisitHistory
+    MedicalRecord, Invoice
 )
 
 @receiver(post_migrate)
 def create_roles_permissions(sender, **kwargs):
     roles_permissions = {
         'Administrator': {
-            'models': [Owner, Pet, Appointment, Service, MedicalRecord, VisitHistory, Invoice],
+            'models': [Owner, Pet, Appointment, Service, MedicalRecord, Invoice],
             'permissions': ['add', 'change', 'delete', 'view']
         },
         'Veterinarian': {
-            'models': [Pet, Appointment, MedicalRecord, VisitHistory],
+            'models': [Pet, Appointment, MedicalRecord],
             'permissions': ['add', 'change', 'view']
         },
         'Assistant': {
-            'models': [Appointment, MedicalRecord, VisitHistory],
+            'models': [Appointment, MedicalRecord],
             'permissions': ['view']
         },
         'Receptionist': {

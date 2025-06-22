@@ -107,12 +107,3 @@ class Invoice(models.Model):
     def __str__(self):
         return f"Invoice #{self.id} for {self.appointment.pet.name}"
 
-
-class VisitHistory(models.Model):
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='visit_history')
-    date = models.DateTimeField()
-    summary = models.TextField()
-    vet = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        return f"{self.pet.name} visit on {self.date.strftime('%Y-%m-%d')}"
