@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'vetclinic/styles.css' %}">
 </head>
-<body> {# REMOVE THE ID FROM HERE IF YOU ADDED IT IN THE LAST STEP #}
+<body>
 
 {% include 'vetclinic/navbar.html' %}
 
@@ -21,65 +22,42 @@
     </div>
 </div>
 
-{# NEW WRAPPER DIV HERE! #}
-<div class="appointment-page-section">
-    <main class="container py-5"> {# Keep Bootstrap's container and padding here #}
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <h2 class="mb-4 text-center">Book Your Visit</h2>
-                <form action="#" method="POST" class="needs-validation" novalidate>
+<!-- Appointment Form -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="mb-4 text-center">Book an Appointment</h2>
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <form method="POST" class="row g-3 needs-validation" novalidate>
                     {% csrf_token %}
-                    <div class="mb-4">
-                        <label for="petName" class="form-label">Pet Name</label>
-                        <input type="text" class="form-control" id="petName" name="pet_name" required>
-                        <div class="invalid-feedback">
-                            Please enter your pet's name.
+                    {% for field in form %}
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                {{ field.label }}{% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+                            </label>
+                            {{ field|add_class:"form-control" }}
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in field.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
+                    {% endfor %}
+                    <div class="col-12 text-center mt-4">
+                        <button type="submit" class="btn btn-primary px-5 py-2 rounded-pill">
+                            <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                        </button>
                     </div>
-
-                    <div class="mb-4">
-                        <label for="ownerName" class="form-label">Owner's Name</label>
-                        <input type="text" class="form-control" id="ownerName" name="owner_name" required>
-                        <div class="invalid-feedback">
-                            Please enter your name.
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid email address.
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" required>
-                        <div class="invalid-feedback">
-                            Please provide your phone number.
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="date" class="form-label">Appointment Date</label>
-                        <input type="date" class="form-control" id="date" name="date" required>
-                        <div class="invalid-feedback">
-                            Please select a date.
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="message" class="form-label">Additional Notes</label>
-                        <textarea class="form-control" id="message" name="message" rows="4"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100">Submit</button>
                 </form>
             </div>
         </div>
-    </main>
-</div> {# END OF NEW WRAPPER DIV #}
+    </div>
+</section>
 
 {% include 'vetclinic/benefits_section.html' %}
 {% include 'vetclinic/footer.html' %}
