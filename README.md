@@ -21,7 +21,7 @@ This project was developed as part of the **Internet Technologies**, **UX Labora
 ## Authors
 
 - Mikalai Voina
-- Mikita Tsybulko
+- Mikita Tsybulka
 - Mark Liashuk
 
 ---
