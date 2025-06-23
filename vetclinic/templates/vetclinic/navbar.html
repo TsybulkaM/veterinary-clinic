@@ -4,22 +4,30 @@
         <div class="nav-left">
             <a href="{% url 'appointment' %}" class="nav-link {% if request.resolver_match.url_name == 'appointment' %}active{% endif %}">APPOINTMENT</a>
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">OUR CLINIC</a>
+                <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'about' or request.resolver_match.url_name == 'reviews' %}active{% endif %}" href="#" data-bs-toggle="dropdown">
+                    OUR CLINIC
+                </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'about' %}">About us</a></li>
-                    <li><a class="dropdown-item" href="{% url 'location' %}">Location</a></li>
-                    <li><a class="dropdown-item" href="{% url 'reviews' %}">Reviews</a></li>
+                    <li><a class="dropdown-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About us</a></li>
+                    <li><a class="dropdown-item {% if request.resolver_match.url_name == 'reviews' %}active{% endif %}" href="{% url 'reviews' %}">Reviews</a></li>
                 </ul>
             </div>
         </div>
+
         <a class="navbar-brand {% if request.resolver_match.url_name == 'homePage' %}active{% endif %}" href="{% url 'homePage' %}">
             <img src="{% static 'vetclinic/logo.png' %}" alt="Logo" />
         </a>
+
         <div class="nav-right">
-            <a href="{% url 'shop' %}" class="nav-link">OUR SHOP</a>
-            <a href="#" class="nav-link">CONTACT US</a>
+            <a href="{% url 'shop' %}" class="nav-link {% if request.resolver_match.url_name == 'shop' %}active{% endif %}">OUR SHOP</a>
+            <a href="{% url 'location' %}" class="nav-link {% if request.resolver_match.url_name == 'location' %}active{% endif %}">LOCATION</a>
             <a href="#" class="nav-link"><i class="fas fa-search"></i></a>
             <a href="#" class="nav-link"><i class="fas fa-phone"></i></a>
         </div>
+
+        <!-- КОРЗИНА ВНУТРИ контейнера -->
+        <a href="{% url 'cart' %}" class="cart-icon" title="View Cart">
+            <img src="{% static 'vetclinic/icons/bag_icon.webp' %}" alt="Cart" width="36" height="36" />
+        </a>
     </div>
 </nav>

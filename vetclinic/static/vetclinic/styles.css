@@ -439,11 +439,7 @@ body {
     box-shadow: none; /* Remove any default box-shadow on inputs */
 }
 
-.appointment-page-section .form-control:focus {
-    border-color: var(--accent-orange); /* Highlight border on focus */
-    box-shadow: 0 0 0 0.25rem rgba(214, 141, 77, 0.25); /* Subtle orange glow on focus */
-    outline: none; /* Remove default outline */
-}
+
 
 /* Updated button style for the form */
 .appointment-page-section .btn-primary {
@@ -463,12 +459,8 @@ body {
     margin-top: 1.5rem; /* More space above button */
 }
 
-.appointment-page-section .btn-primary:hover {
-    background-color: var(--accent-orange-dark); /* Hover effect */
-    color: white;
-    transform: none; /* Remove lift effect if you prefer flat design */
-    box-shadow: none; /* Remove shadow on hover */
-}
+
+
 
 /* ========== Footer Styles ========== */
 .footer {
@@ -764,6 +756,8 @@ body {
 }
 
 
+./* ===== Clinic Benefits Styles ===== */
+
 .benefit-title {
     font-size: 1.15rem;
     font-weight: 700;
@@ -778,7 +772,7 @@ body {
     line-height: 1.6;
 }
 
-/* Optional: Style for the parking button if used */
+/* Button for parking booking */
 .btn-parking-book {
     background-color: transparent;
     border: 2px solid var(--accent-orange);
@@ -786,122 +780,154 @@ body {
     padding: 0.6rem 1.2rem;
     border-radius: 50px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     text-decoration: none;
 }
 
 .btn-parking-book:hover {
     background-color: var(--accent-orange);
-    color: white;
+    color: #fff;
 }
 
-/* Responsive adjustments */
+/* Responsive Clinic Benefits */
 @media (max-width: 768px) {
     .clinic-benefits-section h2 {
         font-size: 2rem;
     }
+
     .benefit-icon-circle {
         width: 100px;
         height: 100px;
     }
+
     .benefit-icon-circle i {
         font-size: 3rem;
     }
-    /* Responsive for images inside benefit circles */
+
     .benefit-icon-circle img {
-        width: 100%; /* Adjust to fill smaller circle */
+        width: 100%;
         height: 100%;
+        object-fit: contain; /* Чтобы картинки не искажались */
     }
+
     .benefit-title {
         font-size: 1.05rem;
     }
+
     .benefit-description {
         font-size: 0.9rem;
     }
 }
-/* ... (your existing CSS before Reviews Page Styles) ... */
 
-/* ========== Reviews Page Styles ========== */
+/* ===== Reviews Page Styles ===== */
+
 .reviews-page-section {
-    background-color: var(--light-gray); /* Light gray background for the entire section */
-    padding-top: 3rem; /* Consistent padding top */
-    padding-bottom: 3rem; /* Consistent padding bottom */
-    min-height: calc(100vh - 120px - 200px - 350px); /* Adjust min-height as per navbar, footer, banner */
+    background-color: var(--light-gray);
+    padding: 3rem 0;
+    min-height: calc(100vh - 120px - 200px - 350px); /* подогнать под высоты navbar, footer, banner */
 }
 
 .reviews-page-section h2 {
-    color: var(--primary-dark); /* Dark heading color */
+    color: var(--primary-dark);
     font-weight: 700;
-    margin-bottom: 3rem; /* More space below main heading */
+    margin-bottom: 3rem;
     text-align: center;
 }
 
+/* Review cards */
 .review-card {
-    background-color: white; /* White background for individual review cards */
-    border: 1px solid #e9ecef; /* Light border */
+    background: #fff;
+    border: 1px solid #e9ecef;
     border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05); /* Subtle shadow for depth */
-    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
 }
 
 .review-card:hover {
-    transform: translateY(-5px); /* Slight lift effect on hover */
+    transform: translateY(-5px);
     box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.1);
 }
 
 .review-avatar-container {
-    flex-shrink: 0; /* Prevents avatar from shrinking */
-    width: 100px; /* Size for the avatar image container */
+    flex-shrink: 0;
+    width: 100px;
     height: 100px;
     border-radius: 50%;
-    overflow: hidden; /* Ensure image is clipped to circle */
-    border: 3px solid var(--accent-orange); /* Orange border around avatar */
-    display: flex; /* To center image if it's smaller */
+    overflow: hidden;
+    border: 3px solid var(--accent-orange);
+    display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .review-avatar {
-    width: 100%; /* Image fills the container */
+    width: 100%;
     height: 100%;
-    object-fit: cover; /* Crops image to fill, maintaining aspect ratio */
+    object-fit: cover;
     display: block;
 }
 
 .review-content {
-    flex-grow: 1; /* Allows content to take remaining space */
+    flex-grow: 1;
 }
 
 .review-card .card-title {
-    color: var(--primary-dark); /* Name color */
+    color: var(--primary-dark);
     font-weight: 600;
     font-size: 1.3rem;
+    margin-bottom: 0.5rem;
 }
 
 .review-card .card-text {
-    color: var(--text-medium); /* Review text color */
+    color: var(--text-medium);
     font-size: 1rem;
     line-height: 1.6;
+    margin-bottom: 0.75rem;
 }
 
 .review-card small.text-muted {
     font-size: 0.85rem;
-    color: var(--text-lighter) !important; /* Ensure it's muted */
+    color: var(--text-lighter) !important;
 }
 
-.star-rating .fas, .star-rating .far {
-    font-size: 1.1rem; /* Size of stars */
-    margin-right: 2px; /* Space between stars */
+/* Star rating */
+.star-rating .fas,
+.star-rating .far {
+    font-size: 1.1rem;
+    margin-right: 2px;
 }
 
-/* Responsive adjustments for reviews */
+/* Cart styles */
+.cart {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.cart-icon:hover {
+    color: #007bff;
+}
+
+/* Responsive Reviews */
 @media (max-width: 767px) {
-    .review-card .card-body {
-        flex-direction: column; /* Stack avatar and text on small screens */
+    .review-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
+
     .review-avatar-container {
-        margin-bottom: 1.5rem !important; /* More space below avatar when stacked */
-        margin-right: 0 !important; /* Remove right margin when stacked */
+        margin-bottom: 1.5rem !important;
+        margin-right: 0 !important;
+    }
+
+    .review-content {
+        width: 100%;
     }
 }
+
+/* ===== Navigation Link Active State ===== */
+
+

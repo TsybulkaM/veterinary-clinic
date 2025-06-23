@@ -67,4 +67,7 @@ def reviews(request):
     return render(request, 'vetclinic/reviews.html')
 
 def shop(request):
-    return  render(request,'vetclinic/shop.html' )
+    return render(request, 'vetclinic/shop.html')
+
+def cart(request):
+    return render(request, 'vetclinic/cart.html')
